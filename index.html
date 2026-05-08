@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+
+    <div class="spinner"></div>
+
+    <h2>Bunda Celebrities Awards
+        <br> 2025/2026
+    </h2>
+
+</div>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bunda Celebrities Awards</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            Bunda Celebrities
+        </div>
+
+        <nav class="nav" id="navMenu">
+            <a href="#">Home</a>
+            <a href="#">Voting</a>
+            <a href="#">Results</a>
+        </nav>
+        <div class="menu-toggle" id="menuToggle">
+
+            ☰
+
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Vote Your Favorite Celebrity</h1>
+        <p>Support your favorite contestant by voting live.</p>
+        <div class="countdown">
+
+            <div class="time-box">
+                <span id="days">00</span>
+                <small>Days</small>
+            </div>
+
+            <div class="time-box">
+                <span id="hours">00</span>
+                <small>Hours</small>
+            </div>
+
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <small>Minutes</small>
+            </div>
+
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <small>Seconds</small>
+            </div>
+
+        </div>
+    </section>
+    <section class="leaderboard">
+
+        <h2>Top Leaders</h2>
+
+        <div class="top-leaders" id="topLeaders">
+
+        </div>
+
+    </section>
+
+    <section class="stats-section">
+
+        <div class="stat-box">
+
+            <h2 id="totalVotes">
+                0
+            </h2>
+
+            <p>Total Votes</p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h2 id="totalContestants">
+                0
+            </h2>
+
+            <p>Contestants</p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h2 id="topCategory">
+                -
+            </h2>
+
+            <p>Top Category</p>
+
+        </div>
+
+    </section>
+
+    <section class="activity-section">
+
+        <h2>Recent Activity</h2>
+
+        <div class="activity-container" id="activityContainer">
+
+        </div>
+
+    </section>
+
+    <!-- CONTESTANTS -->
+    <section class="contestants">
+
+        <h2>Current Contestants</h2>
+        <div class="controls">
+
+            <input type="text" id="searchInput" placeholder="Search contestant...">
+
+            <select id="categoryFilter">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="Artist">
+                    Best Artists
+                </option>
+
+                <option value="Comedian">
+                    Comedians
+                </option>
+
+                <option value="Model">
+                    Models
+                </option>
+
+                <option value="Photographer">
+                    Photographers
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="contestants-container" id="contestantsContainer">
+
+            <!-- Contestants from Firebase -->
+
+        </div>
+
+    </section>
+
+    <!-- VOTE MODAL -->
+
+    <div class="modal" id="voteModal">
+
+        <div class="modal-content">
+
+            <span class="close-modal" id="closeModal">&times;</span>
+
+            <h2 id="modalContestantName">
+                Contestant Name
+            </h2>
+
+            <p class="modal-votes">
+                Current Votes:
+                <span id="modalVotes">0</span>
+            </p>
+
+            <div class="vote-options">
+
+                <button class="vote-option" data-votes="1">
+                    1 Vote = Tsh 100
+                </button>
+
+                <button class="vote-option" data-votes="5">
+                    5 Votes = Tsh 500
+                </button>
+
+                <button class="vote-option" data-votes="10">
+                    10 Votes = Tsh 1000
+                </button>
+
+            </div>
+
+            <input type="text" placeholder="Enter Phone Number" class="phone-input">
+
+            <button id="confirmVoteBtn">
+                Confirm Vote
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- TOAST -->
+
+    <div class="toast" id="toast">
+        Vote submitted successfully!
+    </div>
+
+    <div class="floating-notification" id="floatingNotification">
+
+        <span id="notificationText"></span>
+
+    </div>
+
+    <!-- PAYMENT MODAL -->
+
+    <div class="payment-modal" id="paymentModal">
+
+        <div class="payment-content">
+
+            <span class="close-payment" id="closePayment">
+                &times;
+            </span>
+
+            <h2>Complete Payment</h2>
+
+            <p class="payment-text">
+                Choose payment method
+            </p>
+
+            <div class="payment-methods">
+
+                <button class="payment-method">
+                    🟥 M-Pesa
+                </button>
+
+                <button class="payment-method">
+                    🔴 Airtel Money
+                </button>
+
+                <button class="payment-method">
+                    🔵 Mixx By Yas
+                </button>
+
+                <button class="payment-method">
+                    🟠 Halopesa
+                </button>
+
+            </div>
+
+            <input type="text" placeholder="Enter phone number" class="payment-input">
+
+            <button id="payNowBtn">
+                Pay Now
+            </button>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+</body>
+
+</html>
