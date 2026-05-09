@@ -74,6 +74,26 @@ nav a:hover {
     opacity: 0.8;
 }
 
+/* VOTING HERO */
+
+.voting-hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(to right, #0f172a, #1e3a8a);
+    position: relative;
+}
+
+.voting-hero-content h1 {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.voting-hero-content p {
+    font-size: 18px;
+    opacity: 0.8;
+    margin-bottom: 40px;
+}
+
 
 /* COUNTDOWN */
 
@@ -510,6 +530,14 @@ nav a:hover {
         font-size: 16px;
     }
 
+    .voting-hero-content h1 {
+        font-size: 35px;
+    }
+
+    .voting-hero-content p {
+        font-size: 16px;
+    }
+
     .contestants {
         padding: 50px 20px;
     }
@@ -518,6 +546,25 @@ nav a:hover {
     .controls select {
         width: 100%;
         min-width: 100%;
+    }
+
+    /* Modal adjustments */
+    .modal-content,
+    .payment-content {
+        width: 95%;
+        max-width: none;
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .vote-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
 
 }
@@ -870,4 +917,175 @@ nav a:hover {
     font-weight: 700;
 
     cursor: pointer;
+}
+
+/* SMALL MOBILE CARDS */
+
+@media(max-width:768px) {
+
+    /* TOP LEADERS */
+
+    .top-leaders {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .leader-card {
+        padding: 15px 10px;
+        border-radius: 18px;
+    }
+
+    .leader-card img {
+        width: 65px;
+        height: 65px;
+        border-width: 2px;
+        margin-bottom: 10px;
+    }
+
+    .leader-card h3 {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .leader-card p {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .share-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+        border-radius: 8px;
+    }
+
+    .crown {
+        font-size: 18px;
+        top: 8px;
+        right: 8px;
+    }
+
+
+    /* STATS */
+
+    .stats-section {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 40px 20px;
+    }
+
+    .stat-box {
+        padding: 20px 10px;
+        border-radius: 15px;
+    }
+
+    .stat-box h2 {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+
+    .stat-box p {
+        font-size: 11px;
+    }
+
+}
+
+/* CATEGORIES */
+
+.categories-section {
+    padding: 60px 8%;
+}
+
+.categories-section h2 {
+    text-align: center;
+    font-size: 35px;
+    color: gold;
+    margin-bottom: 40px;
+}
+
+.categories-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.category-card {
+    background: #111827;
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    background: gold;
+    color: black;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px) {
+
+    .categories-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .category-card {
+        padding: 20px 10px;
+        font-size: 13px;
+        border-radius: 15px;
+    }
+
+}
+
+/* GO VOTING SECTION */
+
+.go-voting-section {
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.go-voting-card {
+    width: 100%;
+    max-width: 700px;
+    background: #111;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.go-voting-card h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.go-voting-card p {
+    color: #bbb;
+    margin-bottom: 25px;
+    line-height: 1.7;
+}
+
+.go-voting-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    background: gold;
+    color: #000;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.go-voting-btn:hover {
+    transform: translateY(-3px);
 }
