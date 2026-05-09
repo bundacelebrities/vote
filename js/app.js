@@ -1,6 +1,5 @@
 // FIREBASE IMPORTS
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-
 import {
     getFirestore,
     collection,
@@ -10,8 +9,10 @@ import {
     increment
 } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
-
-// FIREBASE CONFIG
+// SECURITY NOTE: Move Firebase config to environment variables or backend
+// For production, use: process.env.FIREBASE_API_KEY, etc.
+// This is exposed for demo purposes only
+// TODO: Implement proper authentication and authorization
 const firebaseConfig = {
     apiKey: "AIzaSyBI8he4wEs7tMBzb4fwlIwQ5VTUCMjC378",
     authDomain: "bunda-celebrities-voting.firebaseapp.com",
@@ -22,29 +23,34 @@ const firebaseConfig = {
     measurementId: "G-BHC7ZMHS0J"
 };
 
+// Initialize Firebase
+let app, db;
+try {
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+} catch (error) {
+    console.error("Firebase initialization failed:", error);
+    showToast("Failed to connect to database. Please try again later.");
+}
 
-// INITIALIZE FIREBASE
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-
-// TOAST
+const loader = document.getElementById("loader");
 const toast = document.getElementById("toast");
-
 let votingInProgress = false;
 
+// Rate limiting: Max 5 votes per hour per user
+const VOTE_LIMIT = 5;
+const VOTE_WINDOW = 60 * 60 * 1000; // 1 hour
+
+// Simple authentication: Track votes per session
+let userVotes = JSON.parse(localStorage.getItem('userVotes') || '[]');
 
 // SEARCH & FILTER
 const searchInput = document.getElementById("searchInput");
-
 const categoryFilter = document.getElementById("categoryFilter");
-
 let allContestants = [];
 
 // MOBILE MENU
 const menuToggle = document.getElementById("menuToggle");
-
 const navMenu = document.getElementById("navMenu");
 
 // LEADERBOARD
@@ -108,8 +114,25 @@ let selectedContestantId = null;
 let selectedVotes = 1;
 
 
-// HTML CONTAINER
-const contestantsContainer = document.getElementById("contestantsContainer");
+// Function to check rate limit
+function canVote() {
+    const now = Date.now();
+    // Remove old votes outside the window
+    userVotes = userVotes.filter(vote => now - vote.timestamp < VOTE_WINDOW);
+    return userVotes.length < VOTE_LIMIT;
+}
+
+// Function to record vote
+function recordVote() {
+    userVotes.push({ timestamp: Date.now() });
+    localStorage.setItem('userVotes', JSON.stringify(userVotes));
+}
+
+// Phone number validation
+function validatePhoneNumber(phone) {
+    const tanzaniaRegex = /^(\+255|255|0)[67]\d{8}$/;
+    return tanzaniaRegex.test(phone);
+}
 
 
 // DISPLAY CONTESTANTS
@@ -119,31 +142,42 @@ function displayContestants(contestants) {
 
     contestants.forEach((contestant, index) => {
 
+        // Cache image for better performance
+        const img = new Image();
+        img.src = contestant.image;
+        img.onload = () => {
+            // Image loaded successfully
+        };
+        img.onerror = () => {
+            // Fallback to placeholder
+            contestant.image = 'images/placeholder.svg';
+        };
+
         contestantsContainer.innerHTML += `
 
-        <div class="card rank-${index + 1}">
+        <div class="card rank-${index + 1}" role="article" aria-labelledby="contestant-${contestant.id}">
 
-          <div class="rank-badge">
+          <div class="rank-badge" aria-label="Rank ${index + 1}">
             ${index === 0 ? "⭐ #" : "#"}${index + 1}
           </div>
 
-          <img src="${contestant.image}" alt="">
+          <img src="${contestant.image}" alt="Photo of ${contestant.name}" loading="lazy">
 
           <div class="card-content">
 
-            <h3>${contestant.name}</h3>
+            <h3 id="contestant-${contestant.id}">${contestant.name}</h3>
 
             <p>${contestant.category}</p>
 
-            <div class="votes">
+            <div class="votes" aria-label="${contestant.votes} votes">
               Votes: ${contestant.votes}
             </div>
 
-            <div class="progress-bar">
+            <div class="progress-bar" role="progressbar" aria-valuenow="${Math.min(contestant.votes / 100, 100)}" aria-valuemin="0" aria-valuemax="100">
 
               <div 
                 class="progress"
-                style="width:${contestant.votes / 2}%"
+                style="width:${Math.min(contestant.votes / 100, 100)}%"
               ></div>
 
             </div>
@@ -151,6 +185,7 @@ function displayContestants(contestants) {
             <button 
               class="vote-btn"
               data-id="${contestant.id}"
+              aria-label="Vote for ${contestant.name}"
             >
               Vote Now
             </button>
@@ -169,6 +204,13 @@ function displayContestants(contestants) {
 
     voteButtons.forEach((button) => {
 
+        if (!voteModal || !modalContestantName || !modalVotes) {
+            button.disabled = true;
+            button.setAttribute("aria-disabled", "true");
+            button.textContent = "Voting disabled";
+            return;
+        }
+
         button.addEventListener("click", () => {
 
             const contestantId = button.dataset.id;
@@ -184,6 +226,7 @@ function displayContestants(contestants) {
             modalVotes.innerHTML = contestant.votes;
 
             voteModal.style.display = "flex";
+            voteModal.setAttribute('aria-hidden', 'false');
 
         });
 
@@ -194,46 +237,47 @@ function displayContestants(contestants) {
 
 // LOAD CONTESTANTS LIVE
 function loadContestants() {
+    try {
+        onSnapshot(collection(db, "contestants"), (snapshot) => {
+            let contestants = [];
 
-    onSnapshot(collection(db, "contestants"), (snapshot) => {
-
-        let contestants = [];
-
-        // STORE DATA
-        snapshot.forEach((docSnap) => {
-
-            contestants.push({
-                id: docSnap.id,
-                ...docSnap.data()
+            // STORE DATA
+            snapshot.forEach((docSnap) => {
+                contestants.push({
+                    id: docSnap.id,
+                    ...docSnap.data()
+                });
             });
 
-        });
+            // SORT BY VOTES DESCENDING
+            contestants.sort((a, b) => b.votes - a.votes);
 
+            allContestants = contestants;
 
-        // SORT BY VOTES DESCENDING
-        contestants.sort((a, b) => b.votes - a.votes);
-
-        allContestants = contestants;
-
-
-        // DISPLAY
-        displayContestants(contestants);
-        displayTopLeaders(contestants);
-        updateStats(contestants);
-        // HIDE LOADER
-        setTimeout(() => {
-
+            // DISPLAY
+            displayContestants(contestants);
+            displayTopLeaders(contestants);
+            updateStats(contestants);
+            // HIDE LOADER
+            setTimeout(() => {
+                loader.classList.add("hidden");
+            }, 1000);
+        }, (error) => {
+            console.error("Error loading contestants:", error);
+            showToast("Failed to load contestants. Please refresh the page.");
             loader.classList.add("hidden");
-
-        }, 1000);
-
-    });
-
+        });
+    } catch (error) {
+        console.error("Error setting up contestants listener:", error);
+        showToast("Database connection error. Please try again later.");
+        loader.classList.add("hidden");
+    }
 }
 
 
 // COUNTDOWN TIMER
-const votingEndDate = new Date("May 30, 2026 23:59:59").getTime();
+// TODO: Update voting end date as needed
+const votingEndDate = new Date("May 10, 2026 23:59:59").getTime();
 
 const countdown = setInterval(() => {
 
@@ -277,10 +321,25 @@ const countdown = setInterval(() => {
 
 
 // CLOSE MODAL
-closeModal.addEventListener("click", () => {
+if (closeModal && voteModal) {
+    closeModal.addEventListener("click", () => {
+        voteModal.style.display = "none";
+        voteModal.setAttribute('aria-hidden', 'true');
+    });
+}
 
-    voteModal.style.display = "none";
-
+// Keyboard navigation for modals
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (voteModal && voteModal.style.display === 'flex') {
+            voteModal.style.display = 'none';
+            voteModal.setAttribute('aria-hidden', 'true');
+        }
+        if (paymentModal && paymentModal.style.display === 'flex') {
+            paymentModal.style.display = 'none';
+            paymentModal.setAttribute('aria-hidden', 'true');
+        }
+    }
 });
 
 
@@ -303,11 +362,11 @@ voteOptions.forEach((option) => {
 
 
 // CONFIRM VOTE
-confirmVoteBtn.addEventListener("click", () => {
-
-    paymentModal.style.display = "flex";
-
-});
+if (confirmVoteBtn && paymentModal) {
+    confirmVoteBtn.addEventListener("click", () => {
+        paymentModal.style.display = "flex";
+    });
+}
 
 
 // FILTER FUNCTION
@@ -605,59 +664,12 @@ setInterval(() => {
 }, 8000);
 
 // PAY NOW
-payNowBtn.addEventListener("click", async () => {
+// TOAST FUNCTION
 
-    if (selectedPaymentMethod === "") {
+function showToast(message) {
 
-        alert("Please select payment method");
+    toast.innerHTML = message;
 
-        return;
-
-    }
-
-    payNowBtn.innerHTML = "Processing...";
-
-    payNowBtn.disabled = true;
-
-    const contestantRef = doc(
-        db,
-        "contestants",
-        selectedContestantId
-    );
-
-    await updateDoc(contestantRef, {
-
-        votes: increment(selectedVotes)
-
-    });
-
-
-    // ACTIVITY
-    const contestant =
-        allContestants.find(
-            item => item.id === selectedContestantId
-        );
-
-    recentActivities.unshift({
-
-        name: contestant.name,
-
-        votes: selectedVotes,
-
-        time: new Date().toLocaleTimeString()
-
-    });
-
-    if (recentActivities.length > 8) {
-
-        recentActivities.pop();
-
-    }
-
-    displayActivities();
-
-
-    // SUCCESS
     toast.classList.add("show");
 
     setTimeout(() => {
@@ -666,24 +678,194 @@ payNowBtn.addEventListener("click", async () => {
 
     }, 3000);
 
+}
 
-    // CLOSE
-    paymentModal.style.display = "none";
 
-    voteModal.style.display = "none";
 
-    payNowBtn.innerHTML = "Pay Now";
+// PAY NOW
 
-    payNowBtn.disabled = false;
+payNowBtn.addEventListener("click", async () => {
+
+    try {
+
+        // VALIDATIONS
+
+        if (!selectedContestantId) {
+
+            showToast("Contestant not selected");
+
+            return;
+
+        }
+
+        if (selectedPaymentMethod === "") {
+
+            showToast("Please select payment method");
+
+            return;
+
+        }
+
+        const paymentInput =
+            document.querySelector(".payment-input");
+
+        const phone =
+            paymentInput.value.trim();
+
+        if (phone === "") {
+
+            showToast("Enter phone number");
+
+            return;
+
+        }
+
+        if (!validatePhoneNumber(phone)) {
+
+            showToast("Please enter a valid Tanzanian phone number");
+
+            return;
+
+        }
+
+        // Check rate limit
+        if (!canVote()) {
+
+            showToast("You have reached the maximum votes per hour. Please try again later.");
+
+            return;
+
+        }
+
+        // LOADING
+        payNowBtn.innerHTML = "Processing...";
+        payNowBtn.disabled = true;
+
+        // TODO: Integrate with actual payment gateway (M-Pesa, Airtel Money, etc.)
+        // Currently simulating payment processing
+
+
+        // FIREBASE UPDATE
+
+        const contestantRef = doc(
+
+            db,
+            "contestants",
+            selectedContestantId
+
+        );
+
+        await updateDoc(contestantRef, {
+
+            votes: increment(selectedVotes)
+
+        });
+
+        // Record vote for rate limiting
+        recordVote();
+
+
+        // FIND CONTESTANT
+
+        const contestant =
+            allContestants.find(
+
+                item =>
+                    item.id === selectedContestantId
+
+            );
+
+
+        // SAVE ACTIVITY
+
+        recentActivities.unshift({
+
+            name: contestant.name,
+
+            votes: selectedVotes,
+
+            time: new Date().toLocaleTimeString()
+
+        });
+
+        if (recentActivities.length > 8) {
+
+            recentActivities.pop();
+
+        }
+
+        displayActivities();
+
+
+        // SUCCESS TOAST
+
+        showToast("Vote submitted successfully!");
+
+
+        // CONFETTI
+
+        confetti({
+
+            particleCount: 150,
+
+            spread: 100,
+
+            origin: { y: 0.6 }
+
+        });
+
+
+        // CLOSE MODALS
+
+        paymentModal.style.display = "none";
+
+        voteModal.style.display = "none";
+
+
+        // RESET INPUTS
+
+        paymentInput.value = "";
+
+        selectedPaymentMethod = "";
+
+        paymentMethods.forEach((btn) => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+        // RESET BUTTON
+
+        payNowBtn.innerHTML = "Pay Now";
+
+        payNowBtn.disabled = false;
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showToast("Payment failed. Try again.");
+
+        payNowBtn.innerHTML = "Pay Now";
+
+        payNowBtn.disabled = false;
+
+    }
 
 });
+
+
 
 // CLOSE PAYMENT
 closePayment.addEventListener("click", () => {
-
     paymentModal.style.display = "none";
-
+    paymentModal.setAttribute('aria-hidden', 'true');
 });
+
+
 
 // SELECT PAYMENT METHOD
 
@@ -700,7 +882,7 @@ paymentMethods.forEach((method) => {
         method.classList.add("active");
 
         selectedPaymentMethod =
-            method.innerText;
+            method.innerText.trim();
 
     });
 
