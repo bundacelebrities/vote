@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- LOADER -->
-
-<div class="loader" id="loader">
-
-    <div class="spinner"></div>
-
-    <h2>Bunda Celebrities Awards
-        <br> 2025/2026
-    </h2>
-
-</div>
+<!-- SECURITY NOTE: Add Content Security Policy (CSP) headers in production -->
+<!-- Example: <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com;"> -->
 
 <head>
     <meta charset="UTF-8" />
@@ -25,6 +16,13 @@
 </head>
 
 <body>
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <h2>Bunda Celebrities Awards
+            <br> 2025/2026
+        </h2>
+    </div>
 
     <!-- HEADER -->
     <header>
@@ -33,14 +31,12 @@
         </div>
 
         <nav class="nav" id="navMenu">
-            <a href="#">Home</a>
-            <a href="#">Voting</a>
-            <a href="#">Results</a>
+            <a href="index.html" aria-label="Home page">Home</a>
+            <a href="voting.html" aria-label="Voting page">Voting</a>
+            <a href="#" aria-label="Results page">Results</a>
         </nav>
-        <div class="menu-toggle" id="menuToggle">
-
+        <div class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
             ☰
-
         </div>
     </header>
 
@@ -103,7 +99,7 @@
             <p>Contestants</p>
 
         </div>
-
+        
         <div class="stat-box">
 
             <h2 id="topCategory">
@@ -113,18 +109,140 @@
             <p>Top Category</p>
 
         </div>
-
     </section>
 
-    <section class="activity-section">
+    <!-- CATEGORIES -->
 
-        <h2>Recent Activity</h2>
+    <section class="categories-section">
 
-        <div class="activity-container" id="activityContainer">
+        <h2>Awards Categories</h2>
+
+        <div class="categories-container">
+
+            <!-- MUSIC -->
+
+            <div class="category-card">🎵 Msanii Bora wa Kiume (Mara Region)</div>
+
+            <div class="category-card">🎤 Msanii Bora wa Kike (Mara Region)</div>
+
+            <div class="category-card">🏆 Wimbo Bora wa Mwaka - Bongo Fleva</div>
+
+            <div class="category-card">🔥 Wimbo Bora wa Mwaka - Hip Hop</div>
+
+            <div class="category-card">🥁 Wimbo Bora wa Asili wa Mwaka</div>
+
+            <div class="category-card">🙏 Wimbo Bora wa Gospel wa Mwaka</div>
+
+            <div class="category-card">⭐ Msanii Bora Chipukizi</div>
+
+            <div class="category-card">🎚 Mtayarishaji Bora wa Audio</div>
+
+
+
+            <!-- MEDIA -->
+
+            <div class="category-card">📻 Mtangazaji Bora wa Kiume</div>
+
+            <div class="category-card">🎙 Mtangazaji Bora wa Kike</div>
+
+            <div class="category-card">📺 Kipindi Bora cha Radio/TV</div>
+
+            <div class="category-card">📸 Mwanahabari wa Picha wa Mwaka</div>
+
+            <div class="category-card">🌐 Blog/Online Media Bora Mara</div>
+
+
+
+            <!-- VISUAL ARTS -->
+
+            <div class="category-card">📷 Mpiga Picha Bora wa Mwaka</div>
+
+            <div class="category-card">🎬 Muongozaji Bora wa Video</div>
+
+            <div class="category-card">🎭 Mwigizaji Bora wa Kiume</div>
+
+            <div class="category-card">🌟 Mwigizaji Bora wa Kike</div>
+
+            <div class="category-card">💻 Mhariri Bora wa Video</div>
+
+
+
+            <!-- ENTERTAINMENT -->
+
+            <div class="category-card">🎤 MC Bora wa Kiume</div>
+
+            <div class="category-card">💃 MC Bora wa Kike</div>
+
+            <div class="category-card">🎧 DJ Bora wa Mwaka</div>
+
+            <div class="category-card">🥁 Kikundi Bora cha Ngoma za Asili</div>
+
+            <div class="category-card">😂 Mchekeshaji Bora wa Mwaka</div>
+
+
+
+            <!-- BUSINESS -->
+
+            <div class="category-card">💼 Mjasiriamali Bora wa Kiume</div>
+
+            <div class="category-card">👩‍💼 Mjasiriamali Bora wa Kike</div>
+
+            <div class="category-card">🚀 Kijana Mjasiriamali Anayechipukia</div>
+
+            <div class="category-card">🏪 SME Bora Mara</div>
+
+
+
+            <!-- FASHION -->
+
+            <div class="category-card">👗 Mbunifu Bora wa Mavazi</div>
+
+            <div class="category-card">🕺 Mwanamitindo Bora wa Mwaka</div>
+
+            <div class="category-card">💄 Mtaalamu Bora wa Urembo</div>
+
+
+
+            <!-- SPORTS & COMMUNITY -->
+
+            <div class="category-card">⚽ Mchezaji Bora wa Mpira wa Miguu</div>
+
+            <div class="category-card">🤝 Mshawishi wa Jamii</div>
+
+
+
+            <!-- HONORARY -->
+
+            <div class="category-card">👑 Mara Icon Award</div>
+
+        </div>
 
         </div>
 
     </section>
+
+    <!-- GO TO VOTING PAGE -->
+
+    <section class="go-voting-section">
+
+        <div class="go-voting-card">
+
+            <h2>
+                Ready to Vote?
+            </h2>
+
+            <p>
+                Explore all categories and vote for your favorite contestants live.
+            </p>
+
+            <a href="voting.html" class="go-voting-btn">
+                Go To Voting
+            </a>
+
+        </div>
+
+    </section>
+
 
     <!-- CONTESTANTS -->
     <section class="contestants">
@@ -132,9 +250,9 @@
         <h2>Current Contestants</h2>
         <div class="controls">
 
-            <input type="text" id="searchInput" placeholder="Search contestant...">
+            <input type="text" id="searchInput" placeholder="Search contestant..." aria-label="Search contestants">
 
-            <select id="categoryFilter">
+            <select id="categoryFilter" aria-label="Filter by category">
 
                 <option value="all">
                     All Categories
@@ -168,13 +286,14 @@
 
     </section>
 
+
     <!-- VOTE MODAL -->
 
-    <div class="modal" id="voteModal">
+    <div class="modal" id="voteModal" role="dialog" aria-labelledby="modalContestantName" aria-hidden="true">
 
         <div class="modal-content">
 
-            <span class="close-modal" id="closeModal">&times;</span>
+            <span class="close-modal" id="closeModal" aria-label="Close vote modal">&times;</span>
 
             <h2 id="modalContestantName">
                 Contestant Name
@@ -187,23 +306,21 @@
 
             <div class="vote-options">
 
-                <button class="vote-option" data-votes="1">
+                <button class="vote-option" data-votes="1" aria-label="Vote 1 time for 100 Tsh">
                     1 Vote = Tsh 100
                 </button>
 
-                <button class="vote-option" data-votes="5">
+                <button class="vote-option" data-votes="5" aria-label="Vote 5 times for 500 Tsh">
                     5 Votes = Tsh 500
                 </button>
 
-                <button class="vote-option" data-votes="10">
+                <button class="vote-option" data-votes="10" aria-label="Vote 10 times for 1000 Tsh">
                     10 Votes = Tsh 1000
                 </button>
 
             </div>
 
-            <input type="text" placeholder="Enter Phone Number" class="phone-input">
-
-            <button id="confirmVoteBtn">
+            <button id="confirmVoteBtn" aria-label="Confirm vote selection">
                 Confirm Vote
             </button>
 
@@ -225,15 +342,15 @@
 
     <!-- PAYMENT MODAL -->
 
-    <div class="payment-modal" id="paymentModal">
+    <div class="payment-modal" id="paymentModal" role="dialog" aria-labelledby="payment-title" aria-hidden="true">
 
         <div class="payment-content">
 
-            <span class="close-payment" id="closePayment">
+            <span class="close-payment" id="closePayment" aria-label="Close payment modal">
                 &times;
             </span>
 
-            <h2>Complete Payment</h2>
+            <h2 id="payment-title">Complete Payment</h2>
 
             <p class="payment-text">
                 Choose payment method
@@ -241,27 +358,28 @@
 
             <div class="payment-methods">
 
-                <button class="payment-method">
+                <button class="payment-method" aria-label="Pay with M-Pesa">
                     🟥 M-Pesa
                 </button>
 
-                <button class="payment-method">
+                <button class="payment-method" aria-label="Pay with Airtel Money">
                     🔴 Airtel Money
                 </button>
 
-                <button class="payment-method">
+                <button class="payment-method" aria-label="Pay with Mixx By Yas">
                     🔵 Mixx By Yas
                 </button>
 
-                <button class="payment-method">
+                <button class="payment-method" aria-label="Pay with Halopesa">
                     🟠 Halopesa
                 </button>
 
             </div>
 
-            <input type="text" placeholder="Enter phone number" class="payment-input">
+            <input type="text" placeholder="Enter phone number" class="payment-input"
+                aria-label="Enter phone number for payment">
 
-            <button id="payNowBtn">
+            <button id="payNowBtn" aria-label="Complete payment">
                 Pay Now
             </button>
 

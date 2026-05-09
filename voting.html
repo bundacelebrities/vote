@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- SECURITY NOTE: Add Content Security Policy (CSP) headers in production -->
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        Bunda Celebrities Voting
+    </title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- GOOGLE FONT -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            Bunda Celebrities
+        </div>
+
+        <nav class="nav" id="navMenu">
+
+            <a href="index.html" aria-label="Home page">
+                Home
+            </a>
+
+            <a href="voting.html" class="active-nav" aria-label="Voting page">
+                Voting
+            </a>
+
+            <a href="#" aria-label="Results page">
+                Results
+            </a>
+
+        </nav>
+
+        <div class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+            ☰
+        </div>
+
+    </header>
+
+
+
+    <!-- HERO -->
+
+    <section class="voting-hero">
+
+        <div class="voting-hero-content">
+
+            <h1>
+                Bunda Celebrities Awards Voting 2025/2026
+            </h1>
+
+            <p>
+                Vote for your favorite celebrities, creators, artists,
+                entrepreneurs and entertainers from Mara Region.
+            </p>
+
+        </div>
+
+        <div class="countdown">
+
+            <div class="time-box">
+                <span id="days">00</span>
+                <small>Days</small>
+            </div>
+
+            <div class="time-box">
+                <span id="hours">00</span>
+                <small>Hours</small>
+            </div>
+
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <small>Minutes</small>
+            </div>
+
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <small>Seconds</small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- VOTING CONTROLS -->
+
+    <section class="voting-controls-section">
+
+        <div class="controls-header">
+
+            <h2>
+                Contestants & Categories
+            </h2>
+
+            <p>
+                Search contestants or filter by category
+            </p>
+
+        </div>
+
+        <div class="controls">
+
+            <input type="text" id="searchInput" placeholder="Search contestant..." aria-label="Search contestants">
+
+            <select id="categoryFilter" aria-label="Filter by category">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <!-- MUSIC -->
+
+                <option value="Msanii Bora wa Kiume (Mara Region)">
+                    Msanii Bora wa Kiume (Mara Region)
+                </option>
+
+                <option value="Msanii Bora wa Kike (Mara Region)">
+                    Msanii Bora wa Kike (Mara Region)
+                </option>
+
+                <option value="Wimbo Bora wa Mwaka - Bongo Fleva">
+                    Wimbo Bora wa Mwaka - Bongo Fleva
+                </option>
+
+                <option value="Wimbo Bora wa Mwaka - Hip Hop">
+                    Wimbo Bora wa Mwaka - Hip Hop
+                </option>
+
+                <option value="Wimbo Bora wa Asili wa Mwaka">
+                    Wimbo Bora wa Asili wa Mwaka
+                </option>
+
+                <option value="Wimbo Bora wa Gospel wa Mwaka">
+                    Wimbo Bora wa Gospel wa Mwaka
+                </option>
+
+                <option value="Msanii Bora Chipukizi">
+                    Msanii Bora Chipukizi
+                </option>
+
+                <option value="Mtayarishaji Bora wa Audio">
+                    Mtayarishaji Bora wa Audio
+                </option>
+
+
+
+                <!-- MEDIA -->
+
+                <option value="Mtangazaji Bora wa Kiume">
+                    Mtangazaji Bora wa Kiume
+                </option>
+
+                <option value="Mtangazaji Bora wa Kike">
+                    Mtangazaji Bora wa Kike
+                </option>
+
+                <option value="Kipindi Bora cha Radio/TV">
+                    Kipindi Bora cha Radio/TV
+                </option>
+
+                <option value="Mwanahabari wa Picha wa Mwaka">
+                    Mwanahabari wa Picha wa Mwaka
+                </option>
+
+                <option value="Blog/Online Media Bora Mara">
+                    Blog/Online Media Bora Mara
+                </option>
+
+
+
+                <!-- VISUAL ARTS -->
+
+                <option value="Mpiga Picha Bora wa Mwaka">
+                    Mpiga Picha Bora wa Mwaka
+                </option>
+
+                <option value="Muongozaji Bora wa Video">
+                    Muongozaji Bora wa Video
+                </option>
+
+                <option value="Mwigizaji Bora wa Kiume">
+                    Mwigizaji Bora wa Kiume
+                </option>
+
+                <option value="Mwigizaji Bora wa Kike">
+                    Mwigizaji Bora wa Kike
+                </option>
+
+                <option value="Mhariri Bora wa Video">
+                    Mhariri Bora wa Video
+                </option>
+
+
+
+                <!-- ENTERTAINMENT -->
+
+                <option value="MC Bora wa Kiume">
+                    MC Bora wa Kiume
+                </option>
+
+                <option value="MC Bora wa Kike">
+                    MC Bora wa Kike
+                </option>
+
+                <option value="DJ Bora wa Mwaka">
+                    DJ Bora wa Mwaka
+                </option>
+
+                <option value="Kikundi Bora cha Ngoma za Asili">
+                    Kikundi Bora cha Ngoma za Asili
+                </option>
+
+                <option value="Mchekeshaji Bora wa Mwaka">
+                    Mchekeshaji Bora wa Mwaka
+                </option>
+
+
+
+                <!-- BUSINESS -->
+
+                <option value="Mjasiriamali Bora wa Kiume">
+                    Mjasiriamali Bora wa Kiume
+                </option>
+
+                <option value="Mjasiriamali Bora wa Kike">
+                    Mjasiriamali Bora wa Kike
+                </option>
+
+                <option value="Kijana Mjasiriamali Anayechipukia">
+                    Kijana Mjasiriamali Anayechipukia
+                </option>
+
+                <option value="SME Bora Mara">
+                    SME Bora Mara
+                </option>
+
+
+
+                <!-- FASHION -->
+
+                <option value="Mbunifu Bora wa Mavazi">
+                    Mbunifu Bora wa Mavazi
+                </option>
+
+                <option value="Mwanamitindo Bora wa Mwaka">
+                    Mwanamitindo Bora wa Mwaka
+                </option>
+
+                <option value="Mtaalamu Bora wa Urembo">
+                    Mtaalamu Bora wa Urembo
+                </option>
+
+
+
+                <!-- SPORTS & COMMUNITY -->
+
+                <option value="Mchezaji Bora wa Mpira wa Miguu">
+                    Mchezaji Bora wa Mpira wa Miguu
+                </option>
+
+                <option value="Mshawishi wa Jamii">
+                    Mshawishi wa Jamii
+                </option>
+
+
+
+                <!-- HONORARY -->
+
+                <option value="Mara Icon Award">
+                    Mara Icon Award
+                </option>
+
+                <option value="Mchezaji Bora wa Mpira wa Miguu">
+                    Mchezaji Bora wa Mpira wa Miguu
+                </option>
+
+                <option value="Mshawishi wa Jamii">
+                    Mshawishi wa Jamii
+                </option>
+
+
+
+                <!-- HONORARY -->
+
+                <option value="Mara Icon Award">
+                    Mara Icon Award
+                </option>
+
+            </select>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- CONTESTANTS -->
+
+    <section class="contestants">
+
+        <div class="contestants-container" id="contestantsContainer">
+
+            <!-- FIREBASE CONTESTANTS -->
+
+        </div>
+
+    </section>
+
+
+
+    <!-- VOTE MODAL -->
+
+    <div class="modal" id="voteModal" role="dialog" aria-labelledby="modalContestantName" aria-hidden="true">
+
+        <div class="modal-content">
+
+            <span class="close-modal" id="closeModal" aria-label="Close vote modal">
+                &times;
+            </span>
+
+            <h2 id="modalContestantName">
+                Contestant Name
+            </h2>
+
+            <p class="modal-votes">
+
+                Current Votes :
+
+                <span id="modalVotes">
+                    0
+                </span>
+
+            </p>
+
+            <div class="vote-options">
+
+                <button class="vote-option" data-votes="1" aria-label="Vote 1 time for 100 Tsh">
+                    1 Vote = Tsh 100
+                </button>
+
+                <button class="vote-option" data-votes="5" aria-label="Vote 5 times for 500 Tsh">
+                    5 Votes = Tsh 500
+                </button>
+
+                <button class="vote-option" data-votes="10" aria-label="Vote 10 times for 1000 Tsh">
+                    10 Votes = Tsh 1000
+                </button>
+
+            </div>
+
+            <input type="text" placeholder="Enter Phone Number" class="phone-input" aria-label="Enter phone number for voting">
+
+            <button id="confirmVoteBtn" aria-label="Confirm vote selection">
+                Confirm Vote
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TOAST -->
+
+    <div class="toast" id="toast">
+        Vote submitted successfully!
+    </div>
+
+
+
+    <!-- FLOATING NOTIFICATION -->
+
+    <div class="floating-notification" id="floatingNotification">
+
+        <span id="notificationText"></span>
+
+    </div>
+
+
+
+    <!-- PAYMENT MODAL -->
+
+    <div class="payment-modal" id="paymentModal" role="dialog" aria-labelledby="payment-title" aria-hidden="true">
+
+        <div class="payment-content">
+
+            <span class="close-payment" id="closePayment" aria-label="Close payment modal">
+                &times;
+            </span>
+
+            <h2 id="payment-title">
+                Complete Payment
+            </h2>
+
+            <p class="payment-text">
+                Choose payment method
+            </p>
+
+            <div class="payment-methods">
+
+                <button class="payment-method" aria-label="Pay with M-Pesa">
+                    🟥 M-Pesa
+                </button>
+
+                <button class="payment-method" aria-label="Pay with Airtel Money">
+                    🔴 Airtel Money
+                </button>
+
+                <button class="payment-method" aria-label="Pay with Mixx By Yas">
+                    🔵 Mixx By Yas
+                </button>
+
+                <button class="payment-method" aria-label="Pay with Halopesa">
+                    🟠 Halopesa
+                </button>
+
+            </div>
+
+            <input type="text" placeholder="Enter phone number" class="payment-input" aria-label="Enter phone number for payment">
+
+            <button id="payNowBtn" aria-label="Complete payment">
+                Pay Now
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <script type="module" src="js/app.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+</body>
+
+</html>
