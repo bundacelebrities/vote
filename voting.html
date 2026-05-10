@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- SECURITY NOTE: Add Content Security Policy (CSP) headers in production -->
+
 <head>
 
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description" content="Vote for contestants in the Bunda Celebrities Awards 2025/2026. Secure, live voting platform for Mara Region." />
+
+    <meta name="keywords" content="Voting, Bunda Celebrities, Awards, Mara Region" />
+
+    <meta name="author" content="Bunda Celebrities Awards" />
+
+    <meta name="robots" content="index, follow" />
 
     <title>
         Bunda Celebrities Voting
@@ -41,13 +50,13 @@
                 Voting
             </a>
 
-            <a href="#" aria-label="Results page">
+            <a href="leaderboard.html" aria-label="Results page">
                 Results
             </a>
 
         </nav>
 
-        <div class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+        <div class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
             ☰
         </div>
 
@@ -59,41 +68,40 @@
 
     <section class="voting-hero">
 
-        <div class="voting-hero-content">
+        <div class="voting-hero-copy">
+            <span class="eyebrow">Vote Now</span>
+            <h1>Bunda Celebrities Awards Voting 2025/2026</h1>
+            <p>Choose your favorite contestants from Mara Region and support them with secure, transparent voting.</p>
 
-            <h1>
-                Bunda Celebrities Awards Voting 2025/2026
-            </h1>
-
-            <p>
-                Vote for your favorite celebrities, creators, artists,
-                entrepreneurs and entertainers from Mara Region.
-            </p>
-
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#contestantsContainer">Start Voting</a>
+                <a class="btn btn-secondary" href="#votingControls">How It Works</a>
+            </div>
         </div>
 
-        <div class="countdown">
-
-            <div class="time-box">
-                <span id="days">00</span>
-                <small>Days</small>
+        <div class="voting-hero-panel">
+            <div class="countdown">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <small>Days</small>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <small>Hours</small>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <small>Minutes</small>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <small>Seconds</small>
+                </div>
             </div>
 
-            <div class="time-box">
-                <span id="hours">00</span>
-                <small>Hours</small>
+            <div class="hero-summary">
+                <p>Search contestants or filter by category to find the best nominees quickly.</p>
             </div>
-
-            <div class="time-box">
-                <span id="minutes">00</span>
-                <small>Minutes</small>
-            </div>
-
-            <div class="time-box">
-                <span id="seconds">00</span>
-                <small>Seconds</small>
-            </div>
-
         </div>
 
     </section>
@@ -104,7 +112,7 @@
 
     <section class="voting-controls-section">
 
-        <div class="controls">
+        <div class="controls" id="votingControls">
 
             <input type="text" id="searchInput" placeholder="Search contestant..." aria-label="Search contestants">
 
@@ -284,14 +292,6 @@
                     Mshawishi wa Jamii
                 </option>
 
-
-
-                <!-- HONORARY -->
-
-                <option value="Mara Icon Award">
-                    Mara Icon Award
-                </option>
-
             </select>
 
         </div>
@@ -353,8 +353,6 @@
                 </button>
 
             </div>
-
-            <input type="text" placeholder="Enter Phone Number" class="phone-input" aria-label="Enter phone number for voting">
 
             <button id="confirmVoteBtn" aria-label="Confirm vote selection">
                 Confirm Vote
@@ -422,7 +420,8 @@
 
             </div>
 
-            <input type="text" placeholder="Enter phone number" class="payment-input" aria-label="Enter phone number for payment">
+            <input type="text" placeholder="Enter phone number" class="payment-input"
+                aria-label="Enter phone number for payment">
 
             <button id="payNowBtn" aria-label="Complete payment">
                 Pay Now
@@ -433,6 +432,14 @@
     </div>
 
 
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025/2026 Bunda Celebrities Awards. All rights reserved.</p>
+            <p>Powered by Bunda celebrities</p>
+        </div>
+    </footer>
 
     <script type="module" src="js/app.js"></script>
 
