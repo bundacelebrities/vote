@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Leaderboard and analytics for Bunda Celebrities Awards 2025/2026. Category breakdown, vote analysis, and participant ranking." />
+    <meta name="keywords" content="Bunda Celebrities, Leaderboard, Results, Voting Analysis, Categories" />
+    <meta name="author" content="Bunda Celebrities Awards" />
+    <meta name="robots" content="index, follow" />
+    <title>Bunda Celebrities Results</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <h2>Bunda Celebrities Awards<br>Results Dashboard</h2>
+    </div>
+
+    <header>
+        <div class="logo">Bunda Celebrities</div>
+        <nav class="nav" id="navMenu">
+            <a href="index.html" aria-label="Home page">Home</a>
+            <a href="voting.html" aria-label="Voting page">Voting</a>
+            <a href="leaderboard.html" class="active-nav" aria-label="Results page">Results</a>
+        </nav>
+        <div class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</div>
+    </header>
+
+    <section class="hero leaderboard-hero">
+        <div class="hero-copy">
+            <span class="eyebrow">Results & Performance Dashboard</span>
+            <h1>Leaderboard Analytics</h1>
+            <p>Angalia matokeo ya kila category, washindi wa sasa, na uchambuzi wa kina wa ushindani katika Bunda Celebrities Awards.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="voting.html">Vote Now</a>
+                <a class="btn btn-secondary" href="index.html">Back Home</a>
+            </div>
+        </div>
+
+        <div class="leaderboard-metrics">
+            <div class="metric-card">
+                <h3 id="leaderboardTotalVotes">0</h3>
+                <p>Total Votes</p>
+            </div>
+            <div class="metric-card">
+                <h3 id="leaderboardContestantsCount">0</h3>
+                <p>Contestants</p>
+            </div>
+            <div class="metric-card">
+                <h3 id="leaderboardCategoriesCount">0</h3>
+                <p>Categories</p>
+            </div>
+            <div class="metric-card">
+                <h3 id="leaderboardTopCategory">-</h3>
+                <p>Top Category</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="leaderboard-controls-section">
+        <div class="controls">
+            <input type="text" id="searchLeaderboard" placeholder="Search participant or category..." aria-label="Search leaderboard" />
+            <select id="filterLeaderboard" aria-label="Filter leaderboard by category">
+                <option value="all">All Categories</option>
+            </select>
+        </div>
+    </section>
+
+    <section class="analytics-section">
+        <h2>Category Insights</h2>
+        <div class="analysis-grid" id="categoryAnalysis"></div>
+    </section>
+
+    <section class="participant-section">
+        <h2>Participant Ranking</h2>
+        <div class="leaderboard-table-wrap">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Votes</th>
+                        <th>Share</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardContainer"></tbody>
+            </table>
+        </div>
+        <p class="leaderboard-note">Hapa unaweza kuona washiriki wa juu katika kila category, tazama jinsi kila kategoria inavyocheza katika total votes.</p>
+    </section>
+
+    <section class="category-breakdown-section">
+        <h2>Category Breakdown</h2>
+        <div class="breakdown-grid" id="categoryBreakdown"></div>
+    </section>
+
+    <section class="export-section">
+        <h2>Export Results</h2>
+        <div class="export-controls">
+            <button class="btn btn-primary" id="exportCSV">Export as CSV</button>
+            <button class="btn btn-secondary" id="exportPDF">Export as PDF</button>
+        </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025/2026 Bunda Celebrities Awards. All rights reserved.</p>
+            <p>Powered by Bunda Celebrities</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</body>
+</html>
